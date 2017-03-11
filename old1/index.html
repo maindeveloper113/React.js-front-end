@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+	<title>Upreal</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<meta name="viewport" content="width=620px, initial-scale=1.0">
+	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet">
+	<link href="/app/css/libs.min.css" rel="stylesheet">
+	<link href="/app/css/global.min.css" rel="stylesheet">
+	<script src="/app/js/libs.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+	<script src="/app/js/script.min.js"></script>
+</head>
+<body>
+	<div class="header-wrap">
+		<header class="header content">
+			<a href="/" class="logo" title="National Investment Development Service"></a>
+			<nav class="menu">
+				<a href="#" class="menu__item">Home</a>
+				<a href="#" class="menu__item">Membership</a>
+				<a href="#" class="menu__item">About us</a>
+				<a href="#" class="menu__item">Contact us</a>
+			</nav>
+			<div class="login">Login/Register</div>
+		</header>
+	</div>
+	<section class="find-listing-wrap">
+		<div class="find-listing content">
+			<div>
+				<h1 class="find-listing__title">Find Listing</h1>
+				<p class="find-listing__text">
+					Search for price estimates<br>
+					for any property in US,<br>
+					even if it's not on the market.
+				</p>
+			</div>
+			<form class="main-filter" method="post" action="">
+				<span class="main-filter__title">Search</span>
+				<div class="main-filter__row">
+					<input type="text" class="main-filter__input main-filter__input_text" placeholder="Enter an address, town, street or zip">
+					<div class="main-filter__input">
+						<select class="selectpicker" title="All Cities" data-live-search="true" data-width="100%">
+							<option>Chickago</option>
+							<option>Los-Angeles</option>
+							<option>New-York</option>
+							<option>Tomsk</option>
+							<option>Black River</option>
+							<option>Big Protopopovo</option>
+							<option>White Yar</option>
+						</select>
+					</div>
+					<div class="main-filter__input">
+						<select class="selectpicker" title="All Areas" data-width="100%">
+							<option>Any</option>
+							<option>Oosur</option>
+							<option>Salim el Habish</option>
+							<option>Metish Khaar</option>
+						</select>
+					</div>
+					<div class="main-filter__input">
+						<select class="selectpicker" title="All Types" data-width="100%">
+							<option>Apartment</option>
+							<option>Condo</option>
+							<option>Multi Family Home</option>
+						</select>
+					</div>
+					<div class="main-filter__input">
+						<select class="selectpicker" title="All Status" data-width="100%">
+							<option>For Rent</option>
+							<option>For Sale</option>
+							<option>Open House</option>
+						</select>
+					</div>
+				</div>
+				<div class="main-filter__row">
+					<div class="main-filter__input">
+						<select class="selectpicker" title="Beds" data-width="100%">
+							<option>Any</option>
+							<option>1</option>
+							<option>2</option>
+							<option>3</option>
+							<option>4</option>
+							<option>5</option>
+							<option>6</option>
+						</select>
+					</div>
+					<div class="main-filter__input">
+						<select class="selectpicker" title="Baths" data-width="100%">
+							<option>Any</option>
+							<option>1</option>
+							<option>2</option>
+							<option>3</option>
+							<option>4</option>
+							<option>5</option>
+							<option>6</option>
+						</select>
+					</div>
+					<div class="main-filter__input">
+						<select class="selectpicker" title="Min Area (sqft)" data-width="100%">
+							<option>50</option>
+							<option>100</option>
+							<option>150</option>
+							<option>200</option>
+							<option>300</option>
+						</select>
+					</div>
+					<div class="main-filter__input">
+						<select class="selectpicker" title="Max Area (sqft)" data-width="100%">
+							<option>50</option>
+							<option>100</option>
+							<option>150</option>
+							<option>200</option>
+							<option>300</option>
+						</select>
+					</div>
+					<div class="main-filter__range">
+						<div class="main-filter__range-label">
+							<span>Price range:</span>
+							from
+							<span id="fromPrice">$500</span>
+							to
+							<span id="toPrice">$500,000</span>
+						</div>
+						<div id="priceSlider"></div>
+					</div>
+				</div>
+				<div class="main-filter__row main-filter__row_space">
+					<span class="main-filter__other">Other features</span>
+					<div class="main-filter__search-button">Search</div>
+				</div>
+				<div class="main-filter__features">
+					<div class="main-filter__row">
+						<div class="main-filter__input">
+							<select class="selectpicker" title="All Cities" data-live-search="true" data-width="100%">
+								<option>Chickago</option>
+								<option>Los-Angeles</option>
+								<option>New-York</option>
+								<option>Tomsk</option>
+								<option>Black River</option>
+								<option>Big Protopopovo</option>
+								<option>White Yar</option>
+							</select>
+						</div>
+						<div class="main-filter__range main-filter__range_short">
+							<div class="main-filter__range-label">
+								<span>Bedrooms:</span>
+								from
+								<span id="fromBed">1</span>
+								to
+								<span id="toBed">6</span>
+							</div>
+							<div id="bedSlider"></div>
+						</div>
+						<div class="main-filter__range main-filter__range_short">
+							<div class="main-filter__range-label">
+								<span>Bathrooms:</span>
+								from
+								<span id="fromBath">1</span>
+								to
+								<span id="toBath">6</span>
+							</div>
+							<div id="bathSlider"></div>
+						</div>
+						<div class="main-filter__input">
+							<select class="selectpicker" title="Min Area (sqft)" data-width="100%">
+								<option>50</option>
+								<option>100</option>
+								<option>150</option>
+								<option>200</option>
+								<option>300</option>
+							</select>
+						</div>
+						<div class="main-filter__input">
+							<select class="selectpicker" title="Max Area (sqft)" data-width="100%">
+								<option>50</option>
+								<option>100</option>
+								<option>150</option>
+								<option>200</option>
+								<option>300</option>
+							</select>
+						</div>
+					</div>
+					<div class="main-filter__row">
+						<input type="text" class="main-filter__input main-filter__input_text main-filter__input_short" placeholder="Min price">
+						<input type="text" class="main-filter__input main-filter__input_text main-filter__input_short" placeholder="Max price">
+						<div class="main-filter__range">
+							<div class="main-filter__range-label">
+								<span>Other price range:</span>
+								from
+								<span id="fromOther">$500</span>
+								to
+								<span id="toOther">$500,000</span>
+							</div>
+							<div id="otherSlider"></div>
+						</div>
+					</div>
+				</div>
+			</form>
+		</div>
+	</section>
+	<section class="featured-properties-wrap">
+		<div class="featured-properties content">
+			<span class="featured-properties__title">Featured Properties</span>
+			<div class="owl-carousel">
+				<a href="#" class="featured-properties__item">
+					<div class="featured-properties__image-wrap" style="background-image: url(/app/i/user_files/chicago.jpg)">
+						<span class="featured-properties__label">Featured</span>
+						<div class="featured-properties__bottom">
+							<span class="featured-properties__price">$9,000/MO</span>
+							<div>
+								<div class="featured-properties__ico featured-properties__ico_heart">
+									<span class="featured-properties__ico-hint">Favourite</span>
+								</div>
+								<div class="featured-properties__ico featured-properties__ico_photo">
+									<span class="featured-properties__ico-hint">Photos(1)</span>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="featured-properties__text">
+						<span>Penthouse apartment</span>
+						<span>4 bd 2 bd 2600 Sq Ft</span>
+					</div>
+				</a>
+				<a href="#" class="featured-properties__item">
+					<div class="featured-properties__image-wrap" style="background-image: url(/app/i/user_files/los-angeles.jpg)">
+						<span class="featured-properties__label">Featured</span>
+						<div class="featured-properties__bottom">
+							<span class="featured-properties__price">$987,000</span>
+							<div>
+								<div class="featured-properties__ico featured-properties__ico_heart">
+									<span class="featured-properties__ico-hint">Favourite</span>
+								</div>
+								<div class="featured-properties__ico featured-properties__ico_photo">
+									<span class="featured-properties__ico-hint">Photos(2)</span>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="featured-properties__text">
+						<span>Luxury apartment</span>
+						<span>5 bd 2 ba 3200 Sq Ft</span>
+					</div>
+				</a>
+				<a href="#" class="featured-properties__item">
+					<div class="featured-properties__image-wrap" style="background-image: url(/app/i/user_files/tomsk.jpg)">
+						<span class="featured-properties__label">Featured</span>
+						<div class="featured-properties__bottom">
+							<span class="featured-properties__price">$967,000</span>
+							<div>
+								<div class="featured-properties__ico featured-properties__ico_heart">
+									<span class="featured-properties__ico-hint">Favourite</span>
+								</div>
+								<div class="featured-properties__ico featured-properties__ico_photo">
+									<span class="featured-properties__ico-hint">Photos(3)</span>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="featured-properties__text">
+						<span>Design place apartment</span>
+						<span>4 bd 2 bd 3480 Sq Ft</span>
+					</div>
+				</a>
+				<a href="#" class="featured-properties__item">
+					<div class="featured-properties__image-wrap" style="background-image: url(/app/i/user_files/chicago.jpg)">
+						<span class="featured-properties__label">Featured</span>
+						<div class="featured-properties__bottom">
+							<span class="featured-properties__price">$9,000/MO</span>
+							<div>
+								<div class="featured-properties__ico featured-properties__ico_heart">
+									<span class="featured-properties__ico-hint">Favourite</span>
+								</div>
+								<div class="featured-properties__ico featured-properties__ico_photo">
+									<span class="featured-properties__ico-hint">Photos(1)</span>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="featured-properties__text">
+						<span>Penthouse apartment</span>
+						<span>4 bd 2 bd 2600 Sq Ft</span>
+					</div>
+				</a>
+				<a href="#" class="featured-properties__item">
+					<div class="featured-properties__image-wrap" style="background-image: url(/app/i/user_files/los-angeles.jpg)">
+						<span class="featured-properties__label">Featured</span>
+						<div class="featured-properties__bottom">
+							<span class="featured-properties__price">$987,000</span>
+							<div>
+								<div class="featured-properties__ico featured-properties__ico_heart">
+									<span class="featured-properties__ico-hint">Favourite</span>
+								</div>
+								<div class="featured-properties__ico featured-properties__ico_photo">
+									<span class="featured-properties__ico-hint">Photos(2)</span>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="featured-properties__text">
+						<span>Luxury apartment</span>
+						<span>5 bd 2 ba 3200 Sq Ft</span>
+					</div>
+				</a>
+				<a href="#" class="featured-properties__item">
+					<div class="featured-properties__image-wrap" style="background-image: url(/app/i/user_files/tomsk.jpg)">
+						<span class="featured-properties__label">Featured</span>
+						<div class="featured-properties__bottom">
+							<span class="featured-properties__price">$967,000</span>
+							<div>
+								<div class="featured-properties__ico featured-properties__ico_heart">
+									<span class="featured-properties__ico-hint">Favourite</span>
+								</div>
+								<div class="featured-properties__ico featured-properties__ico_photo">
+									<span class="featured-properties__ico-hint">Photos(3)</span>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="featured-properties__text">
+						<span>Design place apartment</span>
+						<span>4 bd 2 bd 3480 Sq Ft</span>
+					</div>
+				</a>
+				<a href="#" class="featured-properties__item">
+					<div class="featured-properties__image-wrap" style="background-image: url(/app/i/user_files/chicago.jpg)">
+						<span class="featured-properties__label">Featured</span>
+						<div class="featured-properties__bottom">
+							<span class="featured-properties__price">$9,000/MO</span>
+							<div>
+								<div class="featured-properties__ico featured-properties__ico_heart">
+									<span class="featured-properties__ico-hint">Favourite</span>
+								</div>
+								<div class="featured-properties__ico featured-properties__ico_photo">
+									<span class="featured-properties__ico-hint">Photos(1)</span>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="featured-properties__text">
+						<span>Penthouse apartment</span>
+						<span>4 bd 2 bd 2600 Sq Ft</span>
+					</div>
+				</a>
+				<a href="#" class="featured-properties__item">
+					<div class="featured-properties__image-wrap" style="background-image: url(/app/i/user_files/los-angeles.jpg)">
+						<span class="featured-properties__label">Featured</span>
+						<div class="featured-properties__bottom">
+							<span class="featured-properties__price">$987,000</span>
+							<div>
+								<div class="featured-properties__ico featured-properties__ico_heart">
+									<span class="featured-properties__ico-hint">Favourite</span>
+								</div>
+								<div class="featured-properties__ico featured-properties__ico_photo">
+									<span class="featured-properties__ico-hint">Photos(2)</span>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="featured-properties__text">
+						<span>Luxury apartment</span>
+						<span>5 bd 2 ba 3200 Sq Ft</span>
+					</div>
+				</a>
+				<a href="#" class="featured-properties__item">
+					<div class="featured-properties__image-wrap" style="background-image: url(/app/i/user_files/tomsk.jpg)">
+						<span class="featured-properties__label">Featured</span>
+						<div class="featured-properties__bottom">
+							<span class="featured-properties__price">$967,000</span>
+							<div>
+								<div class="featured-properties__ico featured-properties__ico_heart">
+									<span class="featured-properties__ico-hint">Favourite</span>
+								</div>
+								<div class="featured-properties__ico featured-properties__ico_photo">
+									<span class="featured-properties__ico-hint">Photos(3)</span>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="featured-properties__text">
+						<span>Design place apartment</span>
+						<span>4 bd 2 bd 3480 Sq Ft</span>
+					</div>
+				</a>
+			</div>
+		</div>
+	</section>
+	<div class="footer-wrap">
+		<footer class="footer content">
+			<div>
+				<div class="footer__column footer__column_1">
+					<span class="footer__title">About site</span>
+					<p class="footer__text">
+						Lorem ipsum dolor sit amet, consectetur<br>
+						adipisicing elit, sed do eiusmod<br>
+						tempor incididunt ut labore et dolore<br>
+						magna aliq
+					</p>
+				</div>
+				<div class="footer__column footer__column_2">
+					<span class="footer__title">Contact us</span>
+					<div>
+						<div class="footer__contact footer__contact_location">774 NE 84th St Miami, FL 33879</div>
+						<div class="footer__contact footer__contact_phone">Call us FREE +1 (800) 990 8877</div>
+						<div class="footer__contact footer__contact_mail">info@ez.com</div>
+					</div>
+				</div>
+			</div>
+			<div class="footer__column footer__column_3">
+				<span class="footer__title">Newsletter</span>
+				<form class="footer__form" method="post" action="">
+					<i class="footer__mail-ico"></i>
+					<input class="footer__input-text" type="email" placeholder="Enter your email">
+					<input class="footer__input-submit" type="submit" value="Submit">
+				</form>
+				<div class="follow">
+					<span class="follow__title">Follow us</span>
+					<div class="follow__social">
+						<a href="#" target="_blank" class="follow__social-ico follow__social-ico_facebook"></a>
+						<a href="#" target="_blank" class="follow__social-ico follow__social-ico_google"></a>
+					</div>
+				</div>
+			</div>
+		</footer>
+		<div class="copyright-wrap">
+			<div class="copyright content">
+				idsrealty.com - All right reserved
+				<nav class="copyright__menu">
+					<a href="#">Privacy</a>
+					<a href="#">Terms & Conditions</a>
+				</nav>
+			</div>
+		</div>
+	</div>
+    <div class="overlay"></div>
+    <div class="auth">
+        <div class="auth__header">
+            <span class="auth__header-tab auth__header-tab_active">Login</span>
+            <span class="auth__header-tab">Register</span>
+            <span class="auth__close"></span>
+        </div>
+        <div class="auth__tabs">
+            <form class="auth__form" method="post" action="" name="login">
+                <div class="auth__inputs">
+                    <div class="auth__input-wrap auth__input-wrap_login">
+                        <input required class="auth__input" type="text" placeholder="Username">
+                    </div>
+                    <div class="auth__input-wrap auth__input-wrap_pass">
+                        <input required class="auth__input" type="password" placeholder="Password">
+                    </div>
+                </div>
+                <div class="auth__row">
+                    <div class="checkbox">
+                        <input class="checkbox__input" type="checkbox" id="remember">
+                        <label class="checkbox__label" for="remember">Remember me</label>
+                    </div>
+                    <a href="#" class="auth__link">Lost your password?</a>
+                </div>
+                <input class="auth__input auth__input_submit" type="submit" value="Login">
+            </form>
+            <form class="auth__form" method="post" action="" name="register">
+                <div class="auth__inputs">
+                    <div class="auth__input-wrap auth__input-wrap_login">
+                        <input required class="auth__input" type="text" placeholder="Username">
+                    </div>
+                    <div class="auth__input-wrap auth__input-wrap_pass">
+                        <input required class="auth__input" type="password" placeholder="Password">
+                    </div>
+                    <div class="auth__input-wrap auth__input-wrap_email">
+                        <input required class="auth__input" type="email" placeholder="Email">
+                    </div>
+                </div>
+                <input class="auth__input auth__input_submit" type="submit" value="Register">
+            </form>
+        </div>
+    </div>
+</body>
+</html>

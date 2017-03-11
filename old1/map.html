@@ -1,0 +1,945 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+	<title>Upreal</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<meta name="viewport" content="width=620px, initial-scale=1.0">
+	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet">
+	<link href="/app/css/libs.min.css" rel="stylesheet">
+	<link href="/app/css/global.min.css" rel="stylesheet">
+	<script src="/app/js/libs.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+	<script src="/app/js/script.min.js"></script>
+	<script src="https://maps.googleapis.com/maps/api/js"></script>
+    <script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js"></script>
+</head>
+<body>
+	<div class="header-wrap">
+		<header class="header content">
+			<a href="/" class="logo" title="National Investment Development Service"></a>
+			<nav class="menu">
+				<a href="#" class="menu__item">Home</a>
+				<a href="#" class="menu__item">Membership</a>
+				<a href="#" class="menu__item">About us</a>
+				<a href="#" class="menu__item">Contact us</a>
+			</nav>
+			<div class="login">Login/Register</div>
+		</header>
+	</div>
+	<div class="topbar-wrap">
+		<div class="topbar content">
+			<div>
+				<div class="topbar__block-wrap">
+					<div class="topbar__block topbar__block_visibility">
+						<span class="topbar__block-title">Type view</span>
+					</div>
+					<div class="filter visibility">
+						<span data-view="map" class="visibility__item visibility__item_map visibility__item_active">Map view</span>
+						<span data-view="list" class="visibility__item visibility__item_list">List view</span>
+						<span data-view="grid" class="visibility__item visibility__item_grid">Grid view</span>
+						<span data-view="list-map" class="visibility__item visibility__item_list-map">List/map view</span>
+					</div>
+				</div>
+				<div class="topbar__block-wrap">
+					<div class="topbar__block topbar__block_prop">
+						<span class="topbar__block-title">Filter</span>
+					</div>
+					<div class="filter prop">
+						<div>
+							<span class="prop__label">Price range</span>
+							<div id="priceSlider" class="prop__price-slider"></div>
+							<div class="prop__values">
+								<span id="fromPrice">$50</span>
+								<span id="toPrice">$500000</span>
+							</div>
+						</div>
+						<div class="prop__bedrooms">
+							<span class="prop__label">Bedrooms</span>
+							<div id="bedSlider" class="prop__price-slider"></div>
+							<div class="prop__values">
+								<span id="fromBed">1</span>
+								<span id="toBed">6</span>
+							</div>
+						</div>
+						<div class="prop__bathrooms">
+							<span class="prop__label">Bathrooms</span>
+							<div id="bathSlider" class="prop__price-slider"></div>
+							<div class="prop__values">
+								<span id="fromBath">1</span>
+								<span id="toBath">6</span>
+							</div>
+						</div>
+						<div class="prop__areas">
+							<div class="prop__area">
+								<span class="prop__label">Min area</span>
+								<input type="text" class="prop__text-input" name="minArea">
+							</div>
+							<div class="prop__area">
+								<span class="prop__label">Max area</span>
+								<input type="text" class="prop__text-input" name="maxArea">
+							</div>
+						</div>
+						<div class="prop__city">
+							<span class="prop__label">City</span>
+							<select class="selectpicker" title="City" data-live-search="true" data-width="100%">
+								<option>Chickago</option>
+								<option>Los-Angeles</option>
+								<option>New-York</option>
+								<option>Tomsk</option>
+								<option>Black River</option>
+								<option>Big Protopopovo</option>
+								<option>White Yar</option>
+							</select>
+						</div>
+						<div class="prop__button">Search</div>
+					</div>
+				</div>
+				<form class="topbar__form" method="post" action="/">
+					<input class="topbar__search" type="search" name="search" placeholder="Search listings..." >
+					<i class="topbar__ico topbar__ico_search"></i>
+				</form>
+				<div class="topbar__block-wrap">
+					<div class="topbar__block topbar__block_sort">
+						<span class="topbar__block-title">Sort</span>
+					</div>
+					<div class="filter sort">
+						<span class="sort__item">Newest</span>
+						<span class="sort__item">Oldest</span>
+						<span class="sort__item">Price (low to high)</span>
+						<span class="sort__item">Price (high to low)</span>
+						<span class="sort__item">Cap rate(low to high)</span>
+						<span class="sort__item">Cap rate(high to low)</span>
+						<span class="sort__item">Bldg size (low to high)</span>
+						<span class="sort__item">Bldg size (high to low)</span>
+					</div>
+				</div>
+				<div class="topbar__block-wrap">
+					<div class="topbar__block topbar__block_saved-search">
+						<span class="topbar__block-title">Saved Search</span>
+					</div>
+					<div class="filter box">
+						<div class="box__search">
+							<i class="box__search-ico"></i>
+							<input type="search" class="box__search-input" placeholder="Search saved search...">
+							<div class="box__plus"></div>
+						</div>
+						<div class="box__list">
+							<span class="box__item">open houses<i class="box__garbage"></i></span>
+							<span class="box__item">penthouse in alabama<i class="box__garbage"></i></span>
+							<span class="box__item">house with park<i class="box__garbage"></i></span>
+							<span class="box__item">mansion in new york<i class="box__garbage"></i></span>
+						</div>
+					</div>
+				</div>
+				<div class="topbar__block-wrap">
+					<div class="topbar__block topbar__block_heart"></div>
+					<div class="filter heart">
+					<div class="heart__search">
+						<i class="box__search-ico"></i>
+						<input type="text" class="heart__search-input" placeholder="Search collections...">
+					</div>
+					<div class="heart__list">
+						<span class="heart__item" data-count="12">Need client review<i class="heart__garbage"></i></span>
+						<span class="heart__item" data-count="64">Rejected<i class="heart__garbage"></i></span>
+						<span class="heart__item" data-count="4">Possible<i class="heart__garbage"></i></span>
+						<span class="heart__item" data-count="22">Sound good<i class="heart__garbage"></i></span>
+						<span class="heart__item" data-count="8">Another collections<i class="heart__garbage"></i></span>
+					</div>
+				</div>
+				</div>
+				<i class="topbar__ico topbar__ico_share"></i>
+				<i class="topbar__ico topbar__ico_print"></i>
+			</div>
+			<div>
+				<i class="topbar__ico topbar__ico_bell"></i>
+				<i class="topbar__ico topbar__ico_screen"></i>
+				<div class="topbar__user">
+					<i class="topbar__ico topbar__ico_user"></i>
+				</div>
+			</div>
+		</div>
+	</div>
+	<section class="map-wrap">
+		<div id="map"></div>
+		<div class="view-wrap">
+			<div class="view">
+				<div class="list">
+					<article data-offer="1" class="list__item">
+						<a href="#" class="list__image-wrap" style="background-image: url(/app/i/user_files/chicago.jpg)">
+							<span class="list__label">Featured</span>
+							<div class="list__bottom">
+								<div class="list__ico list__ico_heart">
+									<span class="list__ico-hint">Favourite</span>
+								</div>
+								<div class="list__ico list__ico_photo">
+									<span class="list__ico-hint">Photos(1)</span>
+								</div>
+							</div>
+						</a>
+						<div class="list__info">
+							<span class="list__offer">For rent</span>
+							<span class="list__offer list__offer_hot">Hot deal</span>
+							<a href="#" class="list__title">Luxury family home</a>
+							<span class="list__address">S Western Ave</span>
+							<span class="list__props">Beds: 4 Bath: 2 Sq Ft: 1200</span>
+							<span class="list__type">Single Family Home</span>
+							<span class="list__contacts list__contacts_author">Brittany Watkins</span>
+							<span class="list__contacts list__contacts_date">6 months ago</span>
+						</div>
+						<div class="list__prices">
+							<span class="list__price">$670,000</span>
+							<span class="list__price list__price_sqft">$6,700/Sqft</span>
+						</div>
+					</article>
+					<article data-offer="2" class="list__item">
+						<a href="#" class="list__image-wrap" style="background-image: url(/app/i/user_files/los-angeles.jpg)">
+							<span class="list__label">Featured</span>
+							<div class="list__bottom">
+								<div class="list__ico list__ico_heart">
+									<span class="list__ico-hint">Favourite</span>
+								</div>
+								<div class="list__ico list__ico_photo">
+									<span class="list__ico-hint">Photos(1)</span>
+								</div>
+							</div>
+						</a>
+						<div class="list__info">
+							<span class="list__offer">For rent</span>
+							<span class="list__offer list__offer_hot">Hot deal</span>
+							<a href="#" class="list__title">Ample penthouse</a>
+							<span class="list__address">Borland Rd</span>
+							<span class="list__props">Beds: 2 Bath: 1 Sq Ft: 1230</span>
+							<span class="list__type">Apartment</span>
+							<span class="list__contacts list__contacts_author">Brittany Watkins</span>
+							<span class="list__contacts list__contacts_date">6 months ago</span>
+						</div>
+						<div class="list__prices">
+							<span class="list__price">$670,000</span>
+							<span class="list__price list__price_sqft">$6,700/Sqft</span>
+						</div>
+					</article>
+					<article data-offer="3" class="list__item">
+						<a href="#" class="list__image-wrap" style="background-image: url(/app/i/user_files/tomsk.jpg)">
+							<span class="list__label">Featured</span>
+							<div class="list__bottom">
+								<div class="list__ico list__ico_heart">
+									<span class="list__ico-hint">Favourite</span>
+								</div>
+								<div class="list__ico list__ico_photo">
+									<span class="list__ico-hint">Photos(1)</span>
+								</div>
+							</div>
+						</a>
+						<div class="list__info">
+							<span class="list__offer">For rent</span>
+							<span class="list__offer list__offer_hot">Hot deal</span>
+							<a href="#" class="list__title">Ample apartment</a>
+							<span class="list__address">Budau Ave</span>
+							<span class="list__props">Beds: 1 Bath: 1 Sq Ft: 1340</span>
+							<span class="list__type">Apartment</span>
+							<span class="list__contacts list__contacts_author">Brittany Watkins</span>
+							<span class="list__contacts list__contacts_date">6 months ago</span>
+						</div>
+						<div class="list__prices">
+							<span class="list__price">$670,000</span>
+							<span class="list__price list__price_sqft">$6,700/Sqft</span>
+						</div>
+					</article>
+					<article data-offer="4" class="list__item">
+						<a href="#" class="list__image-wrap" style="background-image: url(/app/i/user_files/chicago.jpg)">
+							<span class="list__label">Featured</span>
+							<div class="list__bottom">
+								<div class="list__ico list__ico_heart">
+									<span class="list__ico-hint">Favourite</span>
+								</div>
+								<div class="list__ico list__ico_photo">
+									<span class="list__ico-hint">Photos(1)</span>
+								</div>
+							</div>
+						</a>
+						<div class="list__info">
+							<span class="list__offer">For rent</span>
+							<span class="list__offer list__offer_hot">Hot deal</span>
+							<a href="#" class="list__title">Luxury apartment ocean view</a>
+							<span class="list__address">Sierra St</span>
+							<span class="list__props">Beds: 4 Bath: 2 Sq Ft: 1200</span>
+							<span class="list__type">Apartment</span>
+							<span class="list__contacts list__contacts_author">Brittany Watkins</span>
+							<span class="list__contacts list__contacts_date">6 months ago</span>
+						</div>
+						<div class="list__prices">
+							<span class="list__price">$670,000</span>
+							<span class="list__price list__price_sqft">$6,700/Sqft</span>
+						</div>
+					</article>
+					<article data-offer="5" class="list__item">
+						<a href="#" class="list__image-wrap" style="background-image: url(/app/i/user_files/chicago.jpg)">
+							<span class="list__label">Featured</span>
+							<div class="list__bottom">
+								<div class="list__ico list__ico_heart">
+									<span class="list__ico-hint">Favourite</span>
+								</div>
+								<div class="list__ico list__ico_photo">
+									<span class="list__ico-hint">Photos(1)</span>
+								</div>
+							</div>
+						</a>
+						<div class="list__info">
+							<span class="list__offer">For rent</span>
+							<span class="list__offer list__offer_hot">Hot deal</span>
+							<a href="#" class="list__title">Luxury family home</a>
+							<span class="list__address">S Western Ave</span>
+							<span class="list__props">Beds: 4 Bath: 2 Sq Ft: 1200</span>
+							<span class="list__type">Single Family Home</span>
+							<span class="list__contacts list__contacts_author">Brittany Watkins</span>
+							<span class="list__contacts list__contacts_date">6 months ago</span>
+						</div>
+						<div class="list__prices">
+							<span class="list__price">$670,000</span>
+							<span class="list__price list__price_sqft">$6,700/Sqft</span>
+						</div>
+					</article>
+					<article data-offer="6" class="list__item">
+						<a href="#" class="list__image-wrap" style="background-image: url(/app/i/user_files/los-angeles.jpg)">
+							<span class="list__label">Featured</span>
+							<div class="list__bottom">
+								<div class="list__ico list__ico_heart">
+									<span class="list__ico-hint">Favourite</span>
+								</div>
+								<div class="list__ico list__ico_photo">
+									<span class="list__ico-hint">Photos(1)</span>
+								</div>
+							</div>
+						</a>
+						<div class="list__info">
+							<span class="list__offer">For rent</span>
+							<span class="list__offer list__offer_hot">Hot deal</span>
+							<a href="#" class="list__title">Ample penthouse</a>
+							<span class="list__address">Borland Rd</span>
+							<span class="list__props">Beds: 2 Bath: 1 Sq Ft: 1230</span>
+							<span class="list__type">Apartment</span>
+							<span class="list__contacts list__contacts_author">Brittany Watkins</span>
+							<span class="list__contacts list__contacts_date">6 months ago</span>
+						</div>
+						<div class="list__prices">
+							<span class="list__price">$670,000</span>
+							<span class="list__price list__price_sqft">$6,700/Sqft</span>
+						</div>
+					</article>
+				</div>
+				<div class="grid">
+                    <article data-offer="1" class="grid__item">
+                        <a href="#" class="grid__image-wrap" style="background-image: url(/app/i/user_files/chicago.jpg)">
+                            <span class="grid__label">Featured</span>
+                            <div class="grid__bottom">
+                                <div class="grid__prices">
+                                    <span class="grid__price">
+                                        $670,000
+                                    </span>
+                                    <span class="grid__price grid__price_sqft">
+                                        $6,700/Sqft
+                                    </span>
+                                </div>
+                                <div>
+                                    <div class="grid__ico grid__ico_heart">
+                                        <span class="grid__ico-hint">Favourite</span>
+                                    </div>
+                                    <div class="grid__ico grid__ico_photo">
+                                        <span class="grid__ico-hint">Photos(1)</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                        <div>
+                            <span class="grid__offer">For rent</span>
+                            <span class="grid__offer grid__offer_hot">Hot deal</span>
+                        </div>
+                        <a href="#" class="grid__title">Luxury family home</a>
+                        <span class="grid__address"> S Western Ave</span>
+                        <span class="grid__props">Beds: 4 Bath:2 Sq Ft: 1200</span>
+                        <span class="grid__type">Single Family Home</span>
+                        <div>
+                            <span class="grid__contacts grid__contacts_author">Brittany Watkins</span>
+                            <span class="grid__contacts grid__contacts_date">6 months ago</span>
+                        </div>
+                    </article>
+                    <article data-offer="2" class="grid__item">
+                        <a href="#" class="grid__image-wrap" style="background-image: url(/app/i/user_files/chicago.jpg)">
+                            <span class="grid__label">Featured</span>
+                            <div class="grid__bottom">
+                                <div class="grid__prices">
+                                    <span class="grid__price">
+                                        $670,000
+                                    </span>
+                                    <span class="grid__price grid__price_sqft">
+                                        $6,700/Sqft
+                                    </span>
+                                </div>
+                                <div>
+                                    <div class="grid__ico grid__ico_heart">
+                                        <span class="grid__ico-hint">Favourite</span>
+                                    </div>
+                                    <div class="grid__ico grid__ico_photo">
+                                        <span class="grid__ico-hint">Photos(1)</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                        <div>
+                            <span class="grid__offer">For rent</span>
+                            <span class="grid__offer grid__offer_hot">Hot deal</span>
+                        </div>
+                        <a href="#" class="grid__title">Luxury family home</a>
+                        <span class="grid__address"> S Western Ave</span>
+                        <span class="grid__props">Beds: 4 Bath:2 Sq Ft: 1200</span>
+                        <span class="grid__type">Single Family Home</span>
+                        <div>
+                            <span class="grid__contacts grid__contacts_author">Brittany Watkins</span>
+                            <span class="grid__contacts grid__contacts_date">6 months ago</span>
+                        </div>
+                    </article>
+                    <article data-offer="3" class="grid__item">
+                        <a href="#" class="grid__image-wrap" style="background-image: url(/app/i/user_files/chicago.jpg)">
+                            <span class="grid__label">Featured</span>
+                            <div class="grid__bottom">
+                                <div class="grid__prices">
+                                    <span class="grid__price">
+                                        $670,000
+                                    </span>
+                                    <span class="grid__price grid__price_sqft">
+                                        $6,700/Sqft
+                                    </span>
+                                </div>
+                                <div>
+                                    <div class="grid__ico grid__ico_heart">
+                                        <span class="grid__ico-hint">Favourite</span>
+                                    </div>
+                                    <div class="grid__ico grid__ico_photo">
+                                        <span class="grid__ico-hint">Photos(1)</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                        <div>
+                            <span class="grid__offer">For rent</span>
+                            <span class="grid__offer grid__offer_hot">Hot deal</span>
+                        </div>
+                        <a href="#" class="grid__title">Luxury family home</a>
+                        <span class="grid__address"> S Western Ave</span>
+                        <span class="grid__props">Beds: 4 Bath:2 Sq Ft: 1200</span>
+                        <span class="grid__type">Single Family Home</span>
+                        <div>
+                            <span class="grid__contacts grid__contacts_author">Brittany Watkins</span>
+                            <span class="grid__contacts grid__contacts_date">6 months ago</span>
+                        </div>
+                    </article>
+                    <article data-offer="4" class="grid__item">
+                        <a href="#" class="grid__image-wrap" style="background-image: url(/app/i/user_files/chicago.jpg)">
+                            <span class="grid__label">Featured</span>
+                            <div class="grid__bottom">
+                                <div class="grid__prices">
+                                    <span class="grid__price">
+                                        $670,000
+                                    </span>
+                                    <span class="grid__price grid__price_sqft">
+                                        $6,700/Sqft
+                                    </span>
+                                </div>
+                                <div>
+                                    <div class="grid__ico grid__ico_heart">
+                                        <span class="grid__ico-hint">Favourite</span>
+                                    </div>
+                                    <div class="grid__ico grid__ico_photo">
+                                        <span class="grid__ico-hint">Photos(1)</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                        <div>
+                            <span class="grid__offer">For rent</span>
+                            <span class="grid__offer grid__offer_hot">Hot deal</span>
+                        </div>
+                        <a href="#" class="grid__title">Luxury family home</a>
+                        <span class="grid__address"> S Western Ave</span>
+                        <span class="grid__props">Beds: 4 Bath:2 Sq Ft: 1200</span>
+                        <span class="grid__type">Single Family Home</span>
+                        <div>
+                            <span class="grid__contacts grid__contacts_author">Brittany Watkins</span>
+                            <span class="grid__contacts grid__contacts_date">6 months ago</span>
+                        </div>
+                    </article>
+                    <article data-offer="5" class="grid__item">
+                        <a href="#" class="grid__image-wrap" style="background-image: url(/app/i/user_files/chicago.jpg)">
+                            <span class="grid__label">Featured</span>
+                            <div class="grid__bottom">
+                                <div class="grid__prices">
+                                    <span class="grid__price">
+                                        $670,000
+                                    </span>
+                                    <span class="grid__price grid__price_sqft">
+                                        $6,700/Sqft
+                                    </span>
+                                </div>
+                                <div>
+                                    <div class="grid__ico grid__ico_heart">
+                                        <span class="grid__ico-hint">Favourite</span>
+                                    </div>
+                                    <div class="grid__ico grid__ico_photo">
+                                        <span class="grid__ico-hint">Photos(1)</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                        <div>
+                            <span class="grid__offer">For rent</span>
+                            <span class="grid__offer grid__offer_hot">Hot deal</span>
+                        </div>
+                        <a href="#" class="grid__title">Luxury family home</a>
+                        <span class="grid__address"> S Western Ave</span>
+                        <span class="grid__props">Beds: 4 Bath:2 Sq Ft: 1200</span>
+                        <span class="grid__type">Single Family Home</span>
+                        <div>
+                            <span class="grid__contacts grid__contacts_author">Brittany Watkins</span>
+                            <span class="grid__contacts grid__contacts_date">6 months ago</span>
+                        </div>
+                    </article>
+                    <article data-offer="6" class="grid__item">
+                        <a href="#" class="grid__image-wrap" style="background-image: url(/app/i/user_files/chicago.jpg)">
+                            <span class="grid__label">Featured</span>
+                            <div class="grid__bottom">
+                                <div class="grid__prices">
+                                    <span class="grid__price">
+                                        $670,000
+                                    </span>
+                                    <span class="grid__price grid__price_sqft">
+                                        $6,700/Sqft
+                                    </span>
+                                </div>
+                                <div>
+                                    <div class="grid__ico grid__ico_heart">
+                                        <span class="grid__ico-hint">Favourite</span>
+                                    </div>
+                                    <div class="grid__ico grid__ico_photo">
+                                        <span class="grid__ico-hint">Photos(1)</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                        <div>
+                            <span class="grid__offer">For rent</span>
+                            <span class="grid__offer grid__offer_hot">Hot deal</span>
+                        </div>
+                        <a href="#" class="grid__title">Luxury family home</a>
+                        <span class="grid__address"> S Western Ave</span>
+                        <span class="grid__props">Beds: 4 Bath:2 Sq Ft: 1200</span>
+                        <span class="grid__type">Single Family Home</span>
+                        <div>
+                            <span class="grid__contacts grid__contacts_author">Brittany Watkins</span>
+                            <span class="grid__contacts grid__contacts_date">6 months ago</span>
+                        </div>
+                    </article>
+				</div>
+				<div class="full-list">
+                    <article data-offer="1" class="full-list__item">
+                        <a href="#" class="full-list__image-wrap" style="background-image: url(/app/i/user_files/chicago.jpg)">
+                            <span class="full-list__label">Featured</span>
+                            <div class="full-list__bottom">
+                                <div class="full-list__ico full-list__ico_heart">
+                                    <span class="full-list__ico-hint">Favourite</span>
+                                </div>
+                                <div class="full-list__ico full-list__ico_photo">
+                                    <span class="full-list__ico-hint">Photos(1)</span>
+                                </div>
+                            </div>
+                        </a>
+                        <div class="full-list__info">
+                            <div>
+                                <span class="full-list__offer">For rent</span>
+                                <span class="full-list__offer full-list__offer_hot">Hot deal</span>
+                            </div>
+                            <a href="#" class="full-list__title">Luxury family home</a>
+                            <span class="full-list__address"> S Western Ave</span>
+                            <span class="full-list__props">Beds: 4 Bath:2 Sq Ft: 1200</span>
+                            <span class="full-list__type">Single Family Home</span>
+                            <p class="full-list__text">
+                                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum
+                            </p>
+                            <div>
+                                <span class="full-list__contacts full-list__contacts_author">Brittany Watkins</span>
+                                <span class="full-list__contacts full-list__contacts_date">6 months ago</span>
+                            </div>
+                        </div>
+                        <div class="full-list__prices">
+                            <span class="full-list__price">
+                                $670,000
+                            </span>
+                            <span class="full-list__price full-list__price_sqft">
+                                $6,700/Sqft
+                            </span>
+                        </div>
+                    </article>
+                    <article data-offer="2" class="full-list__item">
+                        <a href="#" class="full-list__image-wrap" style="background-image: url(/app/i/user_files/chicago.jpg)">
+                            <span class="full-list__label">Featured</span>
+                            <div class="full-list__bottom">
+                                <div class="full-list__ico full-list__ico_heart">
+                                    <span class="full-list__ico-hint">Favourite</span>
+                                </div>
+                                <div class="full-list__ico full-list__ico_photo">
+                                    <span class="full-list__ico-hint">Photos(1)</span>
+                                </div>
+                            </div>
+                        </a>
+                        <div class="full-list__info">
+                            <div>
+                                <span class="full-list__offer">For rent</span>
+                                <span class="full-list__offer full-list__offer_hot">Hot deal</span>
+                            </div>
+                            <a href="#" class="full-list__title">Luxury family home</a>
+                            <span class="full-list__address"> S Western Ave</span>
+                            <span class="full-list__props">Beds: 4 Bath:2 Sq Ft: 1200</span>
+                            <span class="full-list__type">Single Family Home</span>
+                            <p class="full-list__text">
+                                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum
+                            </p>
+                            <div>
+                                <span class="full-list__contacts full-list__contacts_author">Brittany Watkins</span>
+                                <span class="full-list__contacts full-list__contacts_date">6 months ago</span>
+                            </div>
+                        </div>
+                        <div class="full-list__prices">
+                            <span class="full-list__price">
+                                $670,000
+                            </span>
+                            <span class="full-list__price full-list__price_sqft">
+                                $6,700/Sqft
+                            </span>
+                        </div>
+                    </article>
+                    <article data-offer="3" class="full-list__item">
+                        <a href="#" class="full-list__image-wrap" style="background-image: url(/app/i/user_files/chicago.jpg)">
+                            <span class="full-list__label">Featured</span>
+                            <div class="full-list__bottom">
+                                <div class="full-list__ico full-list__ico_heart">
+                                    <span class="full-list__ico-hint">Favourite</span>
+                                </div>
+                                <div class="full-list__ico full-list__ico_photo">
+                                    <span class="full-list__ico-hint">Photos(1)</span>
+                                </div>
+                            </div>
+                        </a>
+                        <div class="full-list__info">
+                            <div>
+                                <span class="full-list__offer">For rent</span>
+                                <span class="full-list__offer full-list__offer_hot">Hot deal</span>
+                            </div>
+                            <a href="#" class="full-list__title">Luxury family home</a>
+                            <span class="full-list__address"> S Western Ave</span>
+                            <span class="full-list__props">Beds: 4 Bath:2 Sq Ft: 1200</span>
+                            <span class="full-list__type">Single Family Home</span>
+                            <p class="full-list__text">
+                                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum
+                            </p>
+                            <div>
+                                <span class="full-list__contacts full-list__contacts_author">Brittany Watkins</span>
+                                <span class="full-list__contacts full-list__contacts_date">6 months ago</span>
+                            </div>
+                        </div>
+                        <div class="full-list__prices">
+                            <span class="full-list__price">
+                                $670,000
+                            </span>
+                            <span class="full-list__price full-list__price_sqft">
+                                $6,700/Sqft
+                            </span>
+                        </div>
+                    </article>
+                    <article data-offer="4" class="full-list__item">
+                        <a href="#" class="full-list__image-wrap" style="background-image: url(/app/i/user_files/chicago.jpg)">
+                            <span class="full-list__label">Featured</span>
+                            <div class="full-list__bottom">
+                                <div class="full-list__ico full-list__ico_heart">
+                                    <span class="full-list__ico-hint">Favourite</span>
+                                </div>
+                                <div class="full-list__ico full-list__ico_photo">
+                                    <span class="full-list__ico-hint">Photos(1)</span>
+                                </div>
+                            </div>
+                        </a>
+                        <div class="full-list__info">
+                            <div>
+                                <span class="full-list__offer">For rent</span>
+                                <span class="full-list__offer full-list__offer_hot">Hot deal</span>
+                            </div>
+                            <a href="#" class="full-list__title">Luxury family home</a>
+                            <span class="full-list__address"> S Western Ave</span>
+                            <span class="full-list__props">Beds: 4 Bath:2 Sq Ft: 1200</span>
+                            <span class="full-list__type">Single Family Home</span>
+                            <p class="full-list__text">
+                                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum
+                            </p>
+                            <div>
+                                <span class="full-list__contacts full-list__contacts_author">Brittany Watkins</span>
+                                <span class="full-list__contacts full-list__contacts_date">6 months ago</span>
+                            </div>
+                        </div>
+                        <div class="full-list__prices">
+                            <span class="full-list__price">
+                                $670,000
+                            </span>
+                            <span class="full-list__price full-list__price_sqft">
+                                $6,700/Sqft
+                            </span>
+                        </div>
+                    </article>
+                    <article data-offer="5" class="full-list__item">
+                        <a href="#" class="full-list__image-wrap" style="background-image: url(/app/i/user_files/chicago.jpg)">
+                            <span class="full-list__label">Featured</span>
+                            <div class="full-list__bottom">
+                                <div class="full-list__ico full-list__ico_heart">
+                                    <span class="full-list__ico-hint">Favourite</span>
+                                </div>
+                                <div class="full-list__ico full-list__ico_photo">
+                                    <span class="full-list__ico-hint">Photos(1)</span>
+                                </div>
+                            </div>
+                        </a>
+                        <div class="full-list__info">
+                            <div>
+                                <span class="full-list__offer">For rent</span>
+                                <span class="full-list__offer full-list__offer_hot">Hot deal</span>
+                            </div>
+                            <a href="#" class="full-list__title">Luxury family home</a>
+                            <span class="full-list__address"> S Western Ave</span>
+                            <span class="full-list__props">Beds: 4 Bath:2 Sq Ft: 1200</span>
+                            <span class="full-list__type">Single Family Home</span>
+                            <p class="full-list__text">
+                                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum
+                            </p>
+                            <div>
+                                <span class="full-list__contacts full-list__contacts_author">Brittany Watkins</span>
+                                <span class="full-list__contacts full-list__contacts_date">6 months ago</span>
+                            </div>
+                        </div>
+                        <div class="full-list__prices">
+                            <span class="full-list__price">
+                                $670,000
+                            </span>
+                            <span class="full-list__price full-list__price_sqft">
+                                $6,700/Sqft
+                            </span>
+                        </div>
+                    </article>
+				</div>
+			</div>
+			<div class="detail">
+				<div class="controls">
+					<span class="controls__back">Back to result</span>
+					<div>
+						<span class="controls__arrow"></span>
+						230/497
+						<span class="controls__arrow controls__arrow_next"></span>
+					</div>
+					<span class="controls__size"></span>
+				</div>
+				<div class="detail__topline">
+					<span class="detail__title">Beverly hills chateau</span>
+					<span class="detail__price">$42,000,000</span>
+				</div>
+				<div class="detail__address">901 N Alpine Dr, Beverly Hills, CA 90210</div>
+				<div class="detail__views">
+					<span class="detail__ico detail__ico_map-view"></span>
+					<span class="detail__ico detail__ico_video"></span>
+					<span class="detail__ico detail__ico_images detail__ico_active"></span>
+					<span class="detail__ico detail__ico_360"></span>
+					<span class="detail__ico detail__ico_street"></span>
+				</div>
+				<div class="detail__content-wrap">
+					<span class="detail__ico detail__ico_dots"></span>
+					<div class="detail__content">
+						<div id="small-map" class="detail__content-tab"></div>
+						<div class="detail__content-tab">
+							<iframe width="100%" height="100%" src="https://www.youtube.com/embed/iZlgyq5hE5M?rel=0" frameborder="0" allowfullscreen></iframe>
+						</div>
+						<div class="detail__content-tab detail__content-tab_active">
+							<div id="owl-slider">
+								<img src="/app/i/user_files/detail_1.png" class="detail__image" title="Item" alt="Item" />
+								<img src="/app/i/user_files/detail_2.jpg" class="detail__image" title="Item" alt="Item" />
+								<img src="/app/i/user_files/detail_3.jpg" class="detail__image" title="Item" alt="Item" />
+							</div>
+						</div>
+						<div class="detail__content-tab">
+							<iframe
+									style="border: none"
+									name="3drt-my360View"
+									allowfullscreen="true"
+									marginheight="0"
+									marginwidth="0"
+									scrolling="no"
+									src="http://360.yofla.com.s3-website-us-east-1.amazonaws.com/backpackjs/iframe.html"
+									width="100%"
+									height="100%">
+								<p>Your browser does not support iframes.</p>
+							</iframe>
+						</div>
+						<div id="panorama" class="detail__content-tab"></div>
+						<nav class="detail__nav">
+							<a href="#" class="detail__nav-item detail__nav-item_active">Features</a>
+							<a href="#" class="detail__nav-item">Description</a>
+							<a href="#" class="detail__nav-item">Details</a>
+							<a href="#" class="detail__nav-item">Attachments</a>
+							<a href="#" class="detail__nav-item">Contact</a>
+						</nav>
+					</div>
+					<div class="detail__icons">
+						<span class="detail__ico detail__ico_mail"></span>
+						<span class="detail__ico detail__ico_heart"></span>
+						<span class="detail__ico detail__ico_share"></span>
+						<span class="detail__ico detail__ico_print"></span>
+						<span class="detail__ico detail__ico_bell"></span>
+						<span class="detail__ico detail__ico_calc"></span>
+						<span class="detail__ico detail__ico_pencil"></span>
+						<span class="detail__ico detail__ico_waste"></span>
+					</div>
+				</div>
+				<div class="detail__info">
+					<div class="detail__tab">
+						<span class="b">Features</span><br>
+						Cupcake ipsum dolor sit amet gummi bears. Ice cream chocolate bar bonbon I love biscuit jelly-o chocolate. Sweet chocolate bar cake tart candy I love lollipop apple pie topping.
+						<br><br>
+						Soufflé icing I love topping. Cupcake I love I love tootsie roll ice cream I love cupcake dragée. Halvah cheesecake I love.
+						<br><br>
+						Jujubes croissant gummies candy chocolate cake. Brownie cupcake icing cotton candy cheesecake. I love gingerbread powder lemon drops sugar plum croissant gummies liquorice halvah.
+					</div>
+					<div class="detail__tab">
+						<span class="b">Description</span><br>
+						Cupcake ipsum dolor sit amet. Marshmallow dragée gingerbread sesame snaps wafer tart cupcake donut wafer. Oat cake bonbon halvah wafer brownie chupa chups cotton candy. Chupa chups I love topping cotton candy.
+						<br><br>
+						Sugar plum icing halvah pudding pudding I love gingerbread. I love ice cream apple pie. Jujubes I love jujubes cotton candy sugar plum I love jelly-o tart cupcake. Danish I love pudding ice cream toffee croissant topping sweet roll.
+					</div>
+					<div class="detail__tab">
+						<span class="b">Detail</span><br>
+						Cupcake ipsum dolor sit amet. Marshmallow dragée gingerbread sesame snaps wafer tart cupcake donut wafer. Oat cake bonbon halvah wafer brownie chupa chups cotton candy. Chupa chups I love topping cotton candy.
+						<br><br>
+						Sugar plum icing halvah pudding pudding I love gingerbread. I love ice cream apple pie. Jujubes I love jujubes cotton candy sugar plum I love jelly-o tart cupcake. Danish I love pudding ice cream toffee croissant topping sweet roll.
+					</div>
+					<div class="detail__tab">
+						<span class="b">Attachments</span><br>
+						Cupcake ipsum dolor sit amet. Marshmallow dragée gingerbread sesame snaps wafer tart cupcake donut wafer. Oat cake bonbon halvah wafer brownie chupa chups cotton candy. Chupa chups I love topping cotton candy.
+						<br><br>
+						Sugar plum icing halvah pudding pudding I love gingerbread. I love ice cream apple pie. Jujubes I love jujubes cotton candy sugar plum I love jelly-o tart cupcake. Danish I love pudding ice cream toffee croissant topping sweet roll.
+					</div>
+					<div class="detail__tab">
+						<form method="post" action="">
+							<input class="detail__contact-input" placeholder="Your Name" type="text">
+							<input class="detail__contact-input" placeholder="Your Phone / Mail" type="text">
+							<textarea class="detail__contact-textarea" placeholder="Message"></textarea>
+							<input class="detail__contact-submit" type="submit" value="Send">
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<div class="footer-wrap">
+		<footer class="footer content">
+			<div>
+				<div class="footer__column footer__column_1">
+					<span class="footer__title">About site</span>
+					<p class="footer__text">
+						Lorem ipsum dolor sit amet, consectetur<br>
+						adipisicing elit, sed do eiusmod<br>
+						tempor incididunt ut labore et dolore<br>
+						magna aliq
+					</p>
+				</div>
+				<div class="footer__column footer__column_2">
+					<span class="footer__title">Contact us</span>
+					<div>
+						<div class="footer__contact footer__contact_location">774 NE 84th St Miami, FL 33879</div>
+						<div class="footer__contact footer__contact_phone">Call us FREE +1 (800) 990 8877</div>
+						<div class="footer__contact footer__contact_mail">info@ez.com</div>
+					</div>
+				</div>
+			</div>
+			<div class="footer__column footer__column_3">
+				<span class="footer__title">Newsletter</span>
+				<form class="footer__form" method="post" action="">
+					<i class="footer__mail-ico"></i>
+					<input class="footer__input-text" type="email" placeholder="Enter your email">
+					<input class="footer__input-submit" type="submit" value="Submit">
+				</form>
+				<div class="follow">
+					<span class="follow__title">Follow us</span>
+					<div class="follow__social">
+						<a href="#" target="_blank" class="follow__social-ico follow__social-ico_facebook"></a>
+						<a href="#" target="_blank" class="follow__social-ico follow__social-ico_google"></a>
+					</div>
+				</div>
+			</div>
+		</footer>
+		<div class="copyright-wrap">
+			<div class="copyright content">
+				idsrealty.com - All right reserved
+				<nav class="copyright__menu">
+					<a href="#">Privacy</a>
+					<a href="#">Terms & Conditions</a>
+				</nav>
+			</div>
+		</div>
+	</div>
+	<div class="overlay"></div>
+	<div class="popup">
+		<span class="popup__close"></span>
+		<div class="popup__title">Name this Search</div>
+		<form method="post" action="">
+			<input type="text" class="popup__input" placeholder="Name this Search">
+			<div class="popup__buttons">
+				<input class="popup__add-button" type="submit" value="Add">
+				<span class="popup__cancel-button">Cancel</span>
+			</div>
+		</form>
+	</div>
+    <div class="auth">
+        <div class="auth__header">
+            <span class="auth__header-tab auth__header-tab_active">Login</span>
+            <span class="auth__header-tab">Register</span>
+            <span class="auth__close"></span>
+        </div>
+        <div class="auth__tabs">
+            <form class="auth__form" method="post" action="" name="login">
+                <div class="auth__inputs">
+                    <div class="auth__input-wrap auth__input-wrap_login">
+                        <input required class="auth__input" type="text" placeholder="Username">
+                    </div>
+                    <div class="auth__input-wrap auth__input-wrap_pass">
+                        <input required class="auth__input" type="password" placeholder="Password">
+                    </div>
+                </div>
+                <div class="auth__row">
+                    <div class="checkbox">
+                        <input class="checkbox__input" type="checkbox" id="remember">
+                        <label class="checkbox__label" for="remember">Remember me</label>
+                    </div>
+                    <a href="#" class="auth__link">Lost your password?</a>
+                </div>
+                <input class="auth__input auth__input_submit" type="submit" value="Login">
+            </form>
+            <form class="auth__form" method="post" action="" name="register">
+                <div class="auth__inputs">
+                    <div class="auth__input-wrap auth__input-wrap_login">
+                        <input required class="auth__input" type="text" placeholder="Username">
+                    </div>
+                    <div class="auth__input-wrap auth__input-wrap_pass">
+                        <input required class="auth__input" type="password" placeholder="Password">
+                    </div>
+                    <div class="auth__input-wrap auth__input-wrap_email">
+                        <input required class="auth__input" type="email" placeholder="Email">
+                    </div>
+                </div>
+                <input class="auth__input auth__input_submit" type="submit" value="Register">
+            </form>
+        </div>
+    </div>
+</body>
+</html>
